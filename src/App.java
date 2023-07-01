@@ -9,18 +9,20 @@ import java.net.http.HttpResponse.BodyHandlers;
 
 public class App {
     public static void main(String[] args) throws Exception {
-        
+        //Using transcript class to store the json file
         Transcript transcript = new Transcript();
         transcript.setAudio_url("https://github.com/BigOplO/REST_TEST/blob/main/Thirsty.mp4");
         Gson gson = new Gson();
         String jsonRequest = gson.toJson(transcript);
 
+        //Using the POST request
         HttpRequest postRequest = HttpRequest.newBuilder()
         .uri(new URI("https://api.assemblyai.com/v2/transcript"))
         .header("Authorization", "1bbb329fb5b8467fbe2eef577171dc2b")
         .POST(BodyPublishers.ofString(jsonRequest))
         .build();
 
+        //Create the client to send request 
         HttpClient httpClient = HttpClient.newHttpClient();
         HttpResponse<String> postResopnse = httpClient.send(postRequest, BodyHandlers.ofString());
         System.out.println(postResopnse.body());
@@ -29,6 +31,7 @@ public class App {
 
         System.out.println(transcript.getstatus());
 
+        //Create the GET request
          HttpRequest getRequest = HttpRequest.newBuilder()
         .uri(new URI("https://api.assemblyai.com/v2/transcript/" + transcript.getid()))
         .header("Authorization", "1bbb329fb5b8467fbe2eef577171dc2b")
@@ -36,7 +39,7 @@ public class App {
 
         
 
-
+        //Send the request and print situation of proccessing
         while(true){
                 HttpResponse<String> getResopnse = httpClient.send(getRequest, BodyHandlers.ofString());
              transcript = gson.fromJson(getResopnse.body(), Transcript.class);
