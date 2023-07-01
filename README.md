@@ -1,6 +1,8 @@
 ## Getting Started
 
-Welcome to the VS Code Java world. Here is a guideline to help you get started to write Java code in Visual Studio Code.
+Using gson to do serialization and deserialization the data.
+
+Using Assembly-AI to transfer Audio into Script
 
 ## Folder Structure
 
